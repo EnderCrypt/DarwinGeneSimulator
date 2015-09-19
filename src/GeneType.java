@@ -1,11 +1,9 @@
-import java.util.List;
-
 public enum GeneType
 	{
 	GeneType("Push number into stack",100,new GeneInterface()
 			{
 			@Override
-			public void execute(Bot bot, List<Integer> stack, int geneNumberData)
+			public void execute(Bot bot, Stack<Integer> stack, int geneNumberData)
 				{
 				
 				}

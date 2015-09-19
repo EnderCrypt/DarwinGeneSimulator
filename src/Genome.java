@@ -14,7 +14,7 @@ public class Genome
 		}
 	public void execute(Bot bot)
 		{
-		List<Integer> stack = new ArrayList<>();
+		Stack<Integer> stack = new Stack<>();
 		for (Gene gene:genes)
 			{
 			gene.execute(bot, stack);

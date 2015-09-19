@@ -1,5 +1,3 @@
-import java.util.List;
-
 public class Gene
 	{
 	GeneType geneType;
@@ -18,7 +16,7 @@ public class Gene
 			}
 		geneNumberData = (int) (Math.random()*101);
 		}
-	public void execute(Bot bot, List<Integer> stack)
+	public void execute(Bot bot, Stack<Integer> stack)
 		{
 		geneType.geneFunction.execute(bot, stack, geneNumberData);
 		}
