@@ -10,6 +10,18 @@ public class Bot
 		genome = new Genome();
 		flashMemory();
 		}
+	public boolean putMemory(int location, int data)
+		{
+		if ((location >= 0) && (location <= memory.length))
+			{
+			memory[location] = data;
+			return true;
+			}
+		else
+			{
+			return false;
+			}
+		}
 	private void flashMemory()
 		{
 		for (int i=0;i<memory.length;i++)

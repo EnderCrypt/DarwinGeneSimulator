@@ -4,7 +4,7 @@ public class Gene
 	int geneNumberData;
 	Gene ()
 		{
-		int geneIndex = (int) (Math.random()*Main.geneTotalCommon);
+		int geneIndex = (int) (Math.random()*GeneType.getTotalCommon());
 		for (GeneType geneT: GeneType.values())
 			{
 			geneIndex -= geneT.getCommon();
@@ -14,7 +14,10 @@ public class Gene
 				break;
 				}
 			}
-		geneNumberData = (int) (Math.random()*101);
+		if (geneType.doesNeedRawNumber())
+			{
+			geneNumberData = (int) (Math.random()*101);
+			}
 		}
 	public void execute(Bot bot, Stack<Integer> stack)
 		{

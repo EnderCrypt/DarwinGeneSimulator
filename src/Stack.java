@@ -3,7 +3,12 @@ import java.util.List;
 
 public class Stack <T>
 	{
+	private T defaultData;
 	private List<T> stack = new ArrayList<>();
+	Stack(T defaultData)
+		{
+		this.defaultData = defaultData;
+		}
 	public void clear()
 		{
 		stack.clear();
@@ -14,6 +19,13 @@ public class Stack <T>
 		}
 	public T pull()
 		{
-		return stack.remove(stack.size());
+		if (stack.size() > 0)
+			{
+			return stack.remove(stack.size());
+			}
+		else
+			{
+			return defaultData;
+			}
 		}
 	}
