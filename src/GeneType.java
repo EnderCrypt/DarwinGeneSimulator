@@ -3,34 +3,79 @@ public enum GeneType
 	/*
 	 * Basic genes
 	 */
-	STATICNUMBER(true,1000,(bot, stack, geneNumberData) -> // moves the raw number on the gene position into the stack
+	STATICNUMBER(true,1000,(bot, intStack, boolStack, geneNumberData) -> // moves the raw number on the gene position into the stack
 		{
-		stack.push(geneNumberData);
+		intStack.push(geneNumberData);
 		}),
-	GETSTATICMEMORY(true,1000,(bot, stack, geneNumberData) -> // pushes the number at a static location onto the stack
+	GETSTATICMEMORY(true,1000,(bot, intStack, boolStack, geneNumberData) -> // pushes the number at a static location onto the stack
 		{
-		stack.push(bot.memory.get(geneNumberData));
+		int num = bot.memory.get(geneNumberData);
+		if (num > -1)
+			{
+			intStack.push(num);
+			}
 		}),
-	STORE(false,1000,(bot, stack, geneNumberData) -> // uses the top stack number as memory location, and stores the next stack number there
+	STORE(false,1000,(bot, intStack, boolStack, geneNumberData) -> // uses the top stack number as memory location, and stores the next stack number there
 		{
-		int location = stack.pull();
-		int data = stack.pull();
+		int location = intStack.pullInt();
+		int data = intStack.pullInt();
 		bot.memory.put(location, data);
 		}),
 	/*
 	 * Math genes
 	 */
-	INC(false,50,(bot, stack, geneNumberData) -> // increases the top number of the stack by one
+	INC(false,50,(bot, intStack, boolStack, geneNumberData) -> // increases the top number of the stack by one
 		{
-		int num = stack.pull();
-		stack.push(num++);
+		int num = intStack.pullInt();
+		intStack.push(num++);
 		}),
-	DEC(false,50,(bot, stack, geneNumberData) -> // increases the top number of the stack by one
+	DEC(false,50,(bot, intStack, boolStack, geneNumberData) -> // increases the top number of the stack by one
 		{
-		int num = stack.pull();
-		stack.push(num--);
-		});
-	
+		int num = intStack.pullInt();
+		intStack.push(num--);
+		}),
+	ADDITION(false,50,(bot, intStack, boolStack, geneNumberData) ->
+		{
+		int a = intStack.pullInt();
+		int b = intStack.pullInt();
+		intStack.push(a+b);
+		}),
+	SUBTRACTION(false,50,(bot, intStack, boolStack, geneNumberData) ->
+		{
+		int a = intStack.pullInt();
+		int b = intStack.pullInt();
+		intStack.push(a-b);
+		}),
+	MULTIPLY(false,50,(bot, intStack, boolStack, geneNumberData) ->
+		{
+		int a = intStack.pullInt();
+		int b = intStack.pullInt();
+		intStack.push(a*b);
+		}),
+	DIVIDE(false,50,(bot, intStack, boolStack, geneNumberData) ->
+		{
+		int a = intStack.pullInt();
+		int b = intStack.pullInt();
+		if (b > 0)
+			{
+			intStack.push(a/b);
+			}
+		}),
+	RANDOM(false,50,(bot, intStack, boolStack, geneNumberData) ->
+		{
+		int num = intStack.pullInt();
+		intStack.push((int)(Math.random()*(num+1)));
+		}),
+	MODULUS(false,50,(bot, intStack, boolStack, geneNumberData) ->
+		{
+		int a = intStack.pullInt();
+		int b = intStack.pullInt();
+		if (b > 0)
+			{
+			intStack.push(a%b); // needs verification
+			}
+		})
+	;
 	private static int totalCommon;
 	private boolean needsRawNumber;
 	private int common;

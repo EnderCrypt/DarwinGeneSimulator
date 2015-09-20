@@ -44,7 +44,7 @@ public class Memory
 			}
 		else
 			{
-			return maxNumber;
+			return -1;
 			}
 		}
 	public void flashMemory()

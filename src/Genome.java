@@ -14,11 +14,12 @@ public class Genome
 		}
 	public void execute(Bot bot)
 		{
-		Stack<Integer> stack = new Stack<>(bot.memory.getMaxNumber());
+		Stack<Integer> intStack = new Stack<>();
+		Stack<Boolean> boolStack = new Stack<>();
 		for (Gene gene:genes)
 			{
-			gene.execute(bot, stack);
+			gene.execute(bot, intStack, boolStack);
 			}
-		System.out.println("Excess stack: "+stack.size());
+		//System.out.println("Excess stack: "+stack.size());
 		}
 	}

@@ -16,19 +16,11 @@ public class Gene
 			}
 		if (geneType.doesNeedRawNumber())
 			{
-			/*
-			int nums = 1;
-			while (Math.random()*(nums*10) <= 5)
-				{
-				nums++;
-				}
-			geneNumberData = (int) (Math.random()*Math.pow(10, nums));//memory.getMaxNumber()
-			*/
 			geneNumberData = (int) (Math.random()*memory.getMaxNumber());
 			}
 		}
-	public void execute(Bot bot, Stack<Integer> stack)
+	public void execute(Bot bot, Stack<Integer> intStack, Stack<Boolean> boolStack)
 		{
-		geneType.geneFunction.execute(bot, stack, geneNumberData);
+		geneType.geneFunction.execute(bot, intStack, boolStack, geneNumberData);
 		}
 	}
