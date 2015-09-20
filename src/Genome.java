@@ -4,12 +4,12 @@ import java.util.List;
 public class Genome
 	{
 	public List<Gene> genes = new ArrayList<>();
-	Genome()
+	Genome(Memory memory)
 		{
-		int genesToAdd = 25 + (int) (Math.random()*25);
+		int genesToAdd = 250 + (int) (Math.random()*250);
 		for (int i=0;i<genesToAdd;i++)
 			{
-			genes.add(new Gene());
+			genes.add(new Gene(memory));
 			}
 		}
 	public void execute(Bot bot)
@@ -19,5 +19,6 @@ public class Genome
 			{
 			gene.execute(bot, stack);
 			}
+		System.out.println("Excess stack: "+stack.size());
 		}
 	}

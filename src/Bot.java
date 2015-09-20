@@ -4,11 +4,11 @@ public class Bot
 	protected Memory memory;
 	//bot data
 	protected int age = 0;
-	protected int energy = 0;
+	protected int energy = 1000;
 	Bot()
 		{
-		genome = new Genome();
-		memory = new Memory(100,0,100);
+		memory = new Memory(100,0,10000);
+		genome = new Genome(memory);
 		}
 	public void update()
 		{

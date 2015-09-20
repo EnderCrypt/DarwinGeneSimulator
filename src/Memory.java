@@ -6,7 +6,7 @@ public class Memory
 	Memory(int size, int minNumber, int maxNumber)
 		{
 		memory = new int[size];
-		this.minNumber = minNumber;
+		this.minNumber = Math.min(minNumber,0);
 		this.maxNumber = maxNumber;
 		flashMemory();
 		}
@@ -20,16 +20,31 @@ public class Memory
 		}
 	public boolean put(int location, int number)
 		{
-		if ((location >= 0) && (location < memory.length))
+		//if ((location >= 0) && (location < memory.length))
+		if (location >= 0)
 			{
+			location = location % memory.length;
 			number = Math.max(number, minNumber);
-			number = Math.min(number, maxNumber);
+			//number = Math.min(number, maxNumber);
+			number = number % maxNumber;
+			//System.out.println("wrote "+number+" to: "+location);
 			memory[location] = number;
 			return true;
 			}
 		else
 			{
 			return false;
+			}
+		}
+	public int get(int location)
+		{
+		if ((location >= 0) && (location < memory.length))
+			{
+			return memory[location];
+			}
+		else
+			{
+			return maxNumber;
 			}
 		}
 	public void flashMemory()
@@ -61,7 +76,7 @@ public class Memory
 			String out = num+":\t";
 			for (int i=0;(num+i<memory.length) && (i<10);i++)
 				{
-				out = out+memory[num+i]+'\t';
+				out = out+get(num+i)+'\t';
 				}
 			System.out.println(out);
 			num += 10;

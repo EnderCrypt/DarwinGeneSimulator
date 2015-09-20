@@ -2,7 +2,7 @@ public class Gene
 	{
 	GeneType geneType;
 	int geneNumberData;
-	Gene ()
+	Gene (Memory memory)
 		{
 		int geneIndex = (int) (Math.random()*GeneType.getTotalCommon());
 		for (GeneType geneT: GeneType.values())
@@ -16,7 +16,15 @@ public class Gene
 			}
 		if (geneType.doesNeedRawNumber())
 			{
-			geneNumberData = (int) (Math.random()*101);
+			/*
+			int nums = 1;
+			while (Math.random()*(nums*10) <= 5)
+				{
+				nums++;
+				}
+			geneNumberData = (int) (Math.random()*Math.pow(10, nums));//memory.getMaxNumber()
+			*/
+			geneNumberData = (int) (Math.random()*memory.getMaxNumber());
 			}
 		}
 	public void execute(Bot bot, Stack<Integer> stack)

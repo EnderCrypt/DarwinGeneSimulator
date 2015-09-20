@@ -10,6 +10,10 @@ public class Stack <T>
 		stack = new ArrayList<>();
 		this.defaultReturn = defaultReturn;
 		}
+	public int size()
+		{
+		return stack.size();
+		}
 	public void clear()
 		{
 		stack.clear();
