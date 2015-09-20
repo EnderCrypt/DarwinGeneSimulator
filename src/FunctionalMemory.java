@@ -2,12 +2,12 @@ public enum FunctionalMemory
 	{
 	ENERGY(0,(bot, memoryLocation) ->
 		{
-		bot.memory[memoryLocation] = bot.energy;
+		bot.memory.put(memoryLocation, bot.energy);
 		}),
 	AGE(1,(bot, memoryLocation) ->
 		{
 		bot.age++;
-		bot.memory[memoryLocation] = bot.age;
+		bot.memory.put(memoryLocation,bot.age);
 		});
 	
 	private int memory;

@@ -3,11 +3,12 @@ import java.util.List;
 
 public class Stack <T>
 	{
-	private T defaultData;
-	private List<T> stack = new ArrayList<>();
-	Stack(T defaultData)
+	private T defaultReturn;
+	private List<T> stack;
+	Stack(T defaultReturn)
 		{
-		this.defaultData = defaultData;
+		stack = new ArrayList<>();
+		this.defaultReturn = defaultReturn;
 		}
 	public void clear()
 		{
@@ -17,15 +18,24 @@ public class Stack <T>
 		{
 		stack.add(data);
 		}
+	public static boolean intToBoolean(int number, int minNumber , int maxNumber)
+		{
+		double chance = minNumber+(Math.random()*(maxNumber-minNumber));
+		return (number >= chance);
+		}
+	public static boolean intToBoolean(int number, int maxNumber)
+		{
+		return intToBoolean(number, 0 , maxNumber);
+		}
 	public T pull()
 		{
 		if (stack.size() > 0)
 			{
-			return stack.remove(stack.size());
+			return stack.remove(stack.size()-1);
 			}
 		else
 			{
-			return defaultData;
+			return defaultReturn;
 			}
 		}
 	}

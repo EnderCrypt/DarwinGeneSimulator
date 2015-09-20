@@ -1,6 +1,6 @@
 public enum GeneType
 	{
-	STACKRAWNUMBER(true,100,(bot, stack, geneNumberData) -> // moves the raw number on the gene position into the stack
+	RAWNUMBER(true,100,(bot, stack, geneNumberData) -> // moves the raw number on the gene position into the stack
 		{
 		stack.push(geneNumberData);
 		}),
@@ -8,7 +8,7 @@ public enum GeneType
 		{
 		int location = stack.pull();
 		int data = stack.pull();
-		bot.putMemory(location, data);
+		bot.memory.put(location, data);
 		});
 	
 	private static int totalCommon;
