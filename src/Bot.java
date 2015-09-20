@@ -8,7 +8,7 @@ public class Bot
 	Bot()
 		{
 		genome = new Genome();
-		memory = new Memory(95);
+		memory = new Memory(100,0,100);
 		}
 	public void update()
 		{

@@ -1,16 +1,30 @@
 public class Memory
 	{
 	private int[] memory;
-	Memory(int size)
+	private int minNumber;
+	private int maxNumber;
+	Memory(int size, int minNumber, int maxNumber)
 		{
 		memory = new int[size];
+		this.minNumber = minNumber;
+		this.maxNumber = maxNumber;
 		flashMemory();
 		}
-	public boolean put(int location, int data)
+	public int getMinNumber()
+		{
+		return minNumber;
+		}
+	public int getMaxNumber()
+		{
+		return maxNumber;
+		}
+	public boolean put(int location, int number)
 		{
 		if ((location >= 0) && (location < memory.length))
 			{
-			memory[location] = data;
+			number = Math.max(number, minNumber);
+			number = Math.min(number, maxNumber);
+			memory[location] = number;
 			return true;
 			}
 		else

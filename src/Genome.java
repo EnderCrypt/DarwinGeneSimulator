@@ -14,7 +14,7 @@ public class Genome
 		}
 	public void execute(Bot bot)
 		{
-		Stack<Integer> stack = new Stack<>(100);
+		Stack<Integer> stack = new Stack<>(bot.memory.getMaxNumber());
 		for (Gene gene:genes)
 			{
 			gene.execute(bot, stack);
