@@ -17,8 +17,8 @@ public enum GeneType
 		}),
 	STORE(false,1000,(bot, intStack, boolStack, geneNumberData) -> // uses the top stack number as memory location, and stores the next stack number there
 		{
-		int location = Math.abs(intStack.pullInt());
 		int data = intStack.pullInt();
+		int location = Math.abs(intStack.pullInt());
 		bot.memory.put(location, data);
 		}),
 	/*
