@@ -16,7 +16,12 @@ public class Gene
 			}
 		if (geneType.doesNeedRawNumber())
 			{
-			geneNumberData = (int) (Math.random()*memory.getMaxNumber());
+			int nums = 1;
+			while (Math.random()*(nums*2) <= 1)
+				{
+				nums++;
+				}
+			geneNumberData = (int) (Math.random()*(Math.pow(10, nums)));
 			}
 		}
 	public void execute(Bot bot, Stack<Integer> intStack, Stack<Boolean> boolStack)

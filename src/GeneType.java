@@ -17,7 +17,7 @@ public enum GeneType
 		}),
 	STORE(false,1000,(bot, intStack, boolStack, geneNumberData) -> // uses the top stack number as memory location, and stores the next stack number there
 		{
-		int location = intStack.pullInt();
+		int location = Math.abs(intStack.pullInt());
 		int data = intStack.pullInt();
 		bot.memory.put(location, data);
 		}),
@@ -29,7 +29,7 @@ public enum GeneType
 		int num = intStack.pullInt();
 		intStack.push(num++);
 		}),
-	DEC(false,50,(bot, intStack, boolStack, geneNumberData) -> // increases the top number of the stack by one
+	DEC(false,50,(bot, intStack, boolStack, geneNumberData) -> // decreases the top number of the stack by one
 		{
 		int num = intStack.pullInt();
 		intStack.push(num--);

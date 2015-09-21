@@ -1,32 +1,26 @@
 public class Memory
 	{
 	private int[] memory;
-	private int minNumber;
-	private int maxNumber;
-	Memory(int size, int minNumber, int maxNumber)
+	private int numLimit;
+	Memory(int size, int numLimit)
 		{
 		memory = new int[size];
-		this.minNumber = Math.min(minNumber,0);
-		this.maxNumber = maxNumber;
+		this.numLimit = numLimit;
 		flashMemory();
 		}
-	public int getMinNumber()
+	public int getNumLimit()
 		{
-		return minNumber;
-		}
-	public int getMaxNumber()
-		{
-		return maxNumber;
+		return numLimit;
 		}
 	public boolean put(int location, int number)
 		{
-		//if ((location >= 0) && (location < memory.length))
-		if (location >= 0)
+		if ((location >= 0) && (location < memory.length))
+		//if (location >= 0)
 			{
-			location = location % memory.length;
-			number = Math.max(number, minNumber);
-			//number = Math.min(number, maxNumber);
-			number = number % maxNumber;
+			//location = location % memory.length;
+			number = Math.max(number, -numLimit);
+			number = Math.min(number, numLimit);
+			//number = number % maxNumber;
 			//System.out.println("wrote "+number+" to: "+location);
 			memory[location] = number;
 			return true;
@@ -76,7 +70,11 @@ public class Memory
 			String out = num+":\t";
 			for (int i=0;(num+i<memory.length) && (i<10);i++)
 				{
-				out = out+get(num+i)+'\t';
+				out = out+get(num+i);
+				if (i< 9)
+					{
+					out = out + '\t';
+					}
 				}
 			System.out.println(out);
 			num += 10;

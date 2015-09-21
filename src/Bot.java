@@ -7,7 +7,7 @@ public class Bot
 	protected int energy = 1000;
 	Bot()
 		{
-		memory = new Memory(100,0,10000);
+		memory = new Memory(100,10000);
 		genome = new Genome(memory);
 		}
 	public void update()

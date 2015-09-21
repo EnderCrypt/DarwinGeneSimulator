@@ -20,6 +20,5 @@ public class Genome
 			{
 			gene.execute(bot, intStack, boolStack);
 			}
-		//System.out.println("Excess stack: "+stack.size());
 		}
 	}
