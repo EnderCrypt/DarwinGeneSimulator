@@ -1,4 +1,4 @@
-public enum GeneType
+public enum Operator
 	{
 	/*
 	 * Basic genes
