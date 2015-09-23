@@ -3,7 +3,7 @@ public enum Operator
 	/*
 	 * Basic genes
 	 */
-	STATICNUMBER(true,1000,(execFlow) -> // moves the raw number on the gene position into the stack
+	STATICNUMBER(true,2000,(execFlow) -> // moves the raw number on the gene position into the stack
 		{
 		execFlow.intStack.push(execFlow.gene.geneNumberData);
 		}),
@@ -17,17 +17,17 @@ public enum Operator
 		}),
 	STORE(false,1000,(execFlow) -> // uses the top stack number as memory location, and stores the next stack number there
 		{
-		int data = execFlow.intStack.pullInt();
 		int location = Math.abs(execFlow.intStack.pullInt());
+		int data = execFlow.intStack.pullInt();
+		//System.out.println("storing "+data+" in "+location);
 		execFlow.bot.memory.put(location, data);
 		}),
 	/*
-	 * Conditional genes
+	 * Flow Commands:
 	 */
 	CONDITIONAL(false,250,null),// switches between cond/start
-		//LAMBDA MOVED TO STATIC AT END OF FILE
 	/*
-	 * Math genes
+	 * Basic Commands:
 	 */
 	INC(false,50,(execFlow) -> // increases the top number of the stack by one
 		{
@@ -79,7 +79,96 @@ public enum Operator
 			{
 			execFlow.intStack.push(a%b); // needs verification
 			}
-		})
+		}),
+	/*
+	 * Logical Comparison Operators:
+	 */
+	GREATERTHAN(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.boolStack.push(a>b);
+		}),
+	LESSTHAN(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.boolStack.push(a<b);
+		}),
+	GREATERTHANEQUALS(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.boolStack.push(a>=b);
+		}),
+	LESSTHANEQUALS(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.boolStack.push(a<=b);
+		}),
+	EQUALS(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.boolStack.push(a==b);
+		}),
+	NOTEQUALS(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.boolStack.push(a!=b);
+		}),
+	APROXEQUALS(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		int min = (int) (b*0.9);
+		int max = (int) (b*1.1);
+		execFlow.boolStack.push((a>=min) && (b<=max));
+		}),
+	APROXNOTEQUALS(false,50,(execFlow) ->
+		{
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		int min = (int) (b*0.9);
+		int max = (int) (b*1.1);
+		execFlow.boolStack.push(!((a>=min) && (b<=max)));
+		}),
+	/*
+	 * Logic:
+	 */
+	TRUE(false,50,(execFlow) ->
+		{
+		execFlow.boolStack.push(true);
+		}),
+	FALSE(false,50,(execFlow) ->
+		{
+		execFlow.boolStack.push(false);
+		}),
+	AND(false,50,(execFlow) ->
+		{
+		boolean a = execFlow.boolStack.pullBool();
+		boolean b = execFlow.boolStack.pullBool();
+		execFlow.boolStack.push(a && b);
+		}),
+	OR(false,50,(execFlow) ->
+		{
+		boolean a = execFlow.boolStack.pullBool();
+		boolean b = execFlow.boolStack.pullBool();
+		execFlow.boolStack.push(a || b);
+		}),
+	XOR(false,50,(execFlow) ->
+		{
+		boolean a = execFlow.boolStack.pullBool();
+		boolean b = execFlow.boolStack.pullBool();
+		execFlow.boolStack.push(a ^ b);
+		}),
+	NOT(false,50,(execFlow) ->
+		{
+		boolean val = execFlow.boolStack.pullBool();
+		execFlow.boolStack.push(!val);
+		}),
 	; 
 	private static int totalCommon;
 	private boolean needsRawNumber;
@@ -115,24 +204,27 @@ public enum Operator
 			switch (execFlow.conditionalStatus)
 				{
 				case 0:
-					execFlow.conditionalStatus++;
+					execFlow.conditionalStatus = 1;
 				break;
 				case 1:
 					boolean statmentResult = execFlow.boolStack.pullBool();
 					if (statmentResult)
 						{
-						execFlow.conditionalStatus++;
+						execFlow.conditionalStatus = 2;
 						}
 					else
 						{
+						int count = 0;
 						while (execFlow.iterator.hasNext())
 							{
+							count++;
 							Gene gene = execFlow.iterator.next();
-							if (gene.equals(Operator.CONDITIONAL))
+							if (gene.operator.equals(Operator.CONDITIONAL))
 								{
 								break;
 								}
 							}
+						execFlow.conditionalStatus = 0;
 						}
 				break;
 				case 2:
@@ -141,6 +233,7 @@ public enum Operator
 				default:
 					System.err.println("Unknown conditionalStatus");
 				}
+			//System.out.println(execFlow.conditionalStatus);
 			};
 		}
 	}

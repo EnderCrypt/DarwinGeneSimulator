@@ -24,6 +24,16 @@ public class Gene
 			geneNumberData = (int) (Math.random()*(Math.pow(10, nums)));
 			}
 		}
+	@Override
+	public String toString()
+		{
+		String out = operator.name();
+		if (operator.doesNeedRawNumber())
+			{
+			out = out+"("+geneNumberData+")";
+			}
+		return out;
+		}
 	public void execute(Genome.ExecFlow execFlow)
 		{
 		operator.geneFunction.execute(execFlow);

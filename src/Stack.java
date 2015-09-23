@@ -19,6 +19,10 @@ public class Stack<T>
 	public void push(T data)
 		{
 		stack.add(data);
+		if (stack.size() > 16)
+			{
+			stack.remove(0);
+			}
 		}
 	public T pull()
 		{
@@ -44,6 +48,6 @@ public class Stack<T>
 			{
 			return true;
 			}
-		return (boolean) pull();
+		return (boolean) data;
 		}
 	}

@@ -60,6 +60,7 @@ public class Memory
 		}
 	public void printMemory()
 		{
+		System.out.println("Debug print of "+this);
 		int num = 0;
 		while (num < memory.length)
 			{

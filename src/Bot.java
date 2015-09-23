@@ -9,6 +9,7 @@ public class Bot
 		{
 		memory = new Memory(100,10000);
 		genome = new Genome(memory);
+		//genome.printGenome();
 		}
 	public void update()
 		{
