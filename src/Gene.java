@@ -1,20 +1,20 @@
 public class Gene
 	{
-	GeneType geneType;
+	Operator operator;
 	int geneNumberData;
 	Gene (Memory memory)
 		{
-		int geneIndex = (int) (Math.random()*GeneType.getTotalCommon());
-		for (GeneType geneT: GeneType.values())
+		int geneIndex = (int) (Math.random()*Operator.getTotalCommon());
+		for (Operator geneT: Operator.values())
 			{
 			geneIndex -= geneT.getCommon();
 			if (geneIndex <= 0)
 				{
-				geneType = geneT;
+				operator = geneT;
 				break;
 				}
 			}
-		if (geneType.doesNeedRawNumber())
+		if (operator.doesNeedRawNumber())
 			{
 			int nums = 1;
 			while (Math.random()*(nums*2) <= 1)
@@ -26,6 +26,6 @@ public class Gene
 		}
 	public void execute(Genome.ExecFlow execFlow)
 		{
-		geneType.geneFunction.execute(execFlow);
+		operator.geneFunction.execute(execFlow);
 		}
 	}

@@ -85,7 +85,7 @@ public enum Operator
 	private boolean needsRawNumber;
 	private int common;
 	public GeneInterface geneFunction;
-	private GeneType(boolean needsRawNumber, int common, GeneInterface geneFunction)
+	private Operator(boolean needsRawNumber, int common, GeneInterface geneFunction)
 		{
 		this.needsRawNumber = needsRawNumber;
 		this.common = common;
@@ -105,12 +105,12 @@ public enum Operator
 		}
 	static
 		{
-		for (GeneType gt: GeneType.values())
+		for (Operator gt: Operator.values())
 			{
 			totalCommon += gt.common;
 			}
 		// HOTFIX CONDITIONAL
-		GeneType.CONDITIONAL.geneFunction = (execFlow) -> // switches between cond/start
+		Operator.CONDITIONAL.geneFunction = (execFlow) -> // switches between cond/start
 			{
 			switch (execFlow.conditionalStatus)
 				{
@@ -128,7 +128,7 @@ public enum Operator
 						while (execFlow.iterator.hasNext())
 							{
 							Gene gene = execFlow.iterator.next();
-							if (gene.equals(GeneType.CONDITIONAL))
+							if (gene.equals(Operator.CONDITIONAL))
 								{
 								break;
 								}
