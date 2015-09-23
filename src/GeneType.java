@@ -3,85 +3,81 @@ public enum GeneType
 	/*
 	 * Basic genes
 	 */
-	STATICNUMBER(true,1000,(execData) -> // moves the raw number on the gene position into the stack
+	STATICNUMBER(true,1000,(execFlow) -> // moves the raw number on the gene position into the stack
 		{
-		execData.intStack.push(execData.gene.geneNumberData);
+		execFlow.intStack.push(execFlow.gene.geneNumberData);
 		}),
-	GETSTATICMEMORY(true,1000,(execData) -> // pushes the number at a static location onto the stack
+	GETSTATICMEMORY(true,1000,(execFlow) -> // pushes the number at a static location onto the stack
 		{
-		int num = execData.bot.memory.get(execData.gene.geneNumberData);
+		int num = execFlow.bot.memory.get(execFlow.gene.geneNumberData);
 		if (num > -1)
 			{
-			execData.intStack.push(num);
+			execFlow.intStack.push(num);
 			}
 		}),
-	STORE(false,1000,(execData) -> // uses the top stack number as memory location, and stores the next stack number there
+	STORE(false,1000,(execFlow) -> // uses the top stack number as memory location, and stores the next stack number there
 		{
-		int data = execData.intStack.pullInt();
-		int location = Math.abs(execData.intStack.pullInt());
-		execData.bot.memory.put(location, data);
+		int data = execFlow.intStack.pullInt();
+		int location = Math.abs(execFlow.intStack.pullInt());
+		execFlow.bot.memory.put(location, data);
 		}),
 	/*
 	 * Conditional genes
 	 */
-	CONDITIONAL(false,1000,(execData) -> // switches between cond/start
-		{
-		int data = execData.intStack.pullInt();
-		int location = Math.abs(execData.intStack.pullInt());
-		execData.bot.memory.put(location, data);
-		}),
+	CONDITIONAL(false,250,null),// switches between cond/start
+		//LAMBDA MOVED TO STATIC AT END OF FILE
 	/*
 	 * Math genes
 	 */
-	INC(false,50,(execData) -> // increases the top number of the stack by one
+	INC(false,50,(execFlow) -> // increases the top number of the stack by one
 		{
-		int num = execData.intStack.pullInt();
-		execData.intStack.push(num++);
+		int num = execFlow.intStack.pullInt();
+		execFlow.intStack.push(num++);
 		}),
-	DEC(false,50,(execData) -> // decreases the top number of the stack by one
+	DEC(false,50,(execFlow) -> // decreases the top number of the stack by one
 		{
-		int num = execData.intStack.pullInt();
-		execData.intStack.push(num--);
+		int num = execFlow.intStack.pullInt();
+		execFlow.intStack.push(num--);
 		}),
-	ADDITION(false,50,(execData) ->
+	ADDITION(false,50,(execFlow) ->
 		{
-		int a = execData.intStack.pullInt();
-		int b = execData.intStack.pullInt();
-		execData.intStack.push(a+b);
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.intStack.push(a+b);
 		}),
-	SUBTRACTION(false,50,(execData) ->
+	SUBTRACTION(false,50,(execFlow) ->
 		{
-		int a = execData.intStack.pullInt();
-		int b = execData.intStack.pullInt();
-		execData.intStack.push(a-b);
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.intStack.push(a-b);
 		}),
-	MULTIPLY(false,50,(execData) ->
+	MULTIPLY(false,50,(execFlow) ->
 		{
-		int a = execData.intStack.pullInt();
-		int b = execData.intStack.pullInt();
-		execData.intStack.push(a*b);
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
+		execFlow.intStack.push(a*b);
 		}),
-	DIVIDE(false,50,(execData) ->
+	DIVIDE(false,50,(execFlow) ->
 		{
-		int a = execData.intStack.pullInt();
-		int b = execData.intStack.pullInt();
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
 		if (b > 0)
 			{
-			execData.intStack.push(a/b);
+			execFlow.intStack.push(a/b);
 			}
 		}),
-	RANDOM(false,50,(execData) ->
+	RANDOM(false,50,(execFlow) ->
 		{
-		int num = execData.intStack.pullInt();
-		execData.intStack.push((int)(Math.random()*(num+1)));
+		int num = execFlow.intStack.pullInt();
+		execFlow.intStack.push((int)(Math.random()*(num+1)));
 		}),
-	MODULUS(false,50,(execData) ->
+	MODULUS(false,50,(execFlow) ->
 		{
-		int a = execData.intStack.pullInt();
-		int b = execData.intStack.pullInt();
+		int a = execFlow.intStack.pullInt();
+		int b = execFlow.intStack.pullInt();
 		if (b > 0)
 			{
-			execData.intStack.push(a%b); // needs verification
+			execFlow.intStack.push(a%b); // needs verification
 			}
 		})
 	; 
@@ -113,5 +109,38 @@ public enum GeneType
 			{
 			totalCommon += gt.common;
 			}
+		// HOTFIX CONDITIONAL
+		GeneType.CONDITIONAL.geneFunction = (execFlow) -> // switches between cond/start
+			{
+			switch (execFlow.conditionalStatus)
+				{
+				case 0:
+					execFlow.conditionalStatus++;
+				break;
+				case 1:
+					boolean statmentResult = execFlow.boolStack.pullBool();
+					if (statmentResult)
+						{
+						execFlow.conditionalStatus++;
+						}
+					else
+						{
+						while (execFlow.iterator.hasNext())
+							{
+							Gene gene = execFlow.iterator.next();
+							if (gene.equals(GeneType.CONDITIONAL))
+								{
+								break;
+								}
+							}
+						}
+				break;
+				case 2:
+					execFlow.conditionalStatus = 0;
+				break;
+				default:
+					System.err.println("Unknown conditionalStatus");
+				}
+			};
 		}
 	}

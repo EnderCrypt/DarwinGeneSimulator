@@ -20,12 +20,12 @@ public class Genome
 		
 		Iterator<Gene> iterator = genes.iterator();
 		
-		ExecFlow execData = new ExecFlow(bot, iterator, intStack, boolStack);
+		ExecFlow execFlow = new ExecFlow(bot, iterator, intStack, boolStack);
 		
 		while(iterator.hasNext())
 			{
-			execData.gene = iterator.next();
-			execData.gene.execute(execData);
+			execFlow.gene = iterator.next();
+			execFlow.gene.execute(execFlow);
 			}
 		}
 	class ExecFlow
@@ -34,6 +34,7 @@ public class Genome
 		Stack<Integer> intStack;
 		Stack<Boolean> boolStack;
 		Iterator<Gene> iterator;
+		int conditionalStatus;
 		Gene gene;
 		public ExecFlow(Bot bot, Iterator<Gene> iterator, Stack<Integer> intStack, Stack<Boolean> boolStack)
 			{
@@ -41,6 +42,10 @@ public class Genome
 			this.iterator = iterator;
 			this.intStack = intStack;
 			this.boolStack = boolStack;
+			this.conditionalStatus = 0;
+				// 0 = outside
+				// 1 = conditional
+				// 2 = execute code
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 @FunctionalInterface
 public interface GeneInterface
 	{
-	public void execute(Genome.ExecFlow execData);
+	public void execute(Genome.ExecFlow execFlow);
 	}

@@ -24,8 +24,8 @@ public class Gene
 			geneNumberData = (int) (Math.random()*(Math.pow(10, nums)));
 			}
 		}
-	public void execute(Genome.ExecFlow execData)
+	public void execute(Genome.ExecFlow execFlow)
 		{
-		geneType.geneFunction.execute(execData);
+		geneType.geneFunction.execute(execFlow);
 		}
 	}
