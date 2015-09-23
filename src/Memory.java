@@ -1,7 +1,7 @@
 public class Memory
 	{
 	private int[] memory;
-	private int numLimit;
+	private final int numLimit;
 	Memory(int size, int numLimit)
 		{
 		memory = new int[size];
@@ -15,13 +15,9 @@ public class Memory
 	public boolean put(int location, int number)
 		{
 		if ((location >= 0) && (location < memory.length))
-		//if (location >= 0)
 			{
-			//location = location % memory.length;
 			number = Math.max(number, -numLimit);
 			number = Math.min(number, numLimit);
-			//number = number % maxNumber;
-			//System.out.println("wrote "+number+" to: "+location);
 			memory[location] = number;
 			return true;
 			}

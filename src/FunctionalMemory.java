@@ -10,8 +10,8 @@ public enum FunctionalMemory
 		bot.memory.put(memoryLocation,bot.age);
 		});
 	
-	private int memory;
-	private FunctionalMemoryInterface memoryExecutor;
+	private final int memory;
+	private final FunctionalMemoryInterface memoryExecutor;
 	private FunctionalMemory(int memory, FunctionalMemoryInterface memoryExecutor)
 		{
 		this.memory = memory;
