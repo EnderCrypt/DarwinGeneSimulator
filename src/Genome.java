@@ -20,7 +20,7 @@ public class Genome
 		
 		Iterator<Gene> iterator = genes.iterator();
 		
-		ExecData execData = new ExecData(bot, iterator, intStack, boolStack);
+		ExecFlow execData = new ExecFlow(bot, iterator, intStack, boolStack);
 		
 		while(iterator.hasNext())
 			{
@@ -28,14 +28,14 @@ public class Genome
 			execData.gene.execute(execData);
 			}
 		}
-	class ExecData
+	class ExecFlow
 		{
 		Bot bot;
 		Stack<Integer> intStack;
 		Stack<Boolean> boolStack;
 		Iterator<Gene> iterator;
 		Gene gene;
-		public ExecData(Bot bot, Iterator<Gene> iterator, Stack<Integer> intStack, Stack<Boolean> boolStack)
+		public ExecFlow(Bot bot, Iterator<Gene> iterator, Stack<Integer> intStack, Stack<Boolean> boolStack)
 			{
 			this.bot = bot;
 			this.iterator = iterator;
