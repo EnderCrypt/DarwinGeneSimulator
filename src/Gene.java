@@ -24,8 +24,8 @@ public class Gene
 			geneNumberData = (int) (Math.random()*(Math.pow(10, nums)));
 			}
 		}
-	public void execute(Bot bot, Stack<Integer> intStack, Stack<Boolean> boolStack)
+	public void execute(Genome.ExecData execData)
 		{
-		geneType.geneFunction.execute(bot, intStack, boolStack, geneNumberData);
+		geneType.geneFunction.execute(execData);
 		}
 	}
