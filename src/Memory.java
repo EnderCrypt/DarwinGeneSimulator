@@ -34,7 +34,7 @@ public class Memory
 			}
 		else
 			{
-			return -1;
+			return 0;
 			}
 		}
 	public void flashMemory()

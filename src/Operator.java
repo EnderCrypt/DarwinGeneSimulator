@@ -214,10 +214,8 @@ public enum Operator
 						}
 					else
 						{
-						int count = 0;
 						while (execFlow.iterator.hasNext())
 							{
-							count++;
 							Gene gene = execFlow.iterator.next();
 							if (gene.operator.equals(Operator.CONDITIONAL))
 								{
