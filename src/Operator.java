@@ -7,7 +7,7 @@ public enum Operator
 		{
 		execFlow.intStack.push(execFlow.gene.geneNumberData);
 		}),
-	GETSTATICMEMORY(true,1000,(execFlow) -> // pushes the number at a static location onto the stack
+	STATICMEMORY(true,1000,(execFlow) -> // pushes the number at a static location onto the stack
 		{
 		int num = execFlow.bot.memory.get(execFlow.gene.geneNumberData);
 		if (num > -1)

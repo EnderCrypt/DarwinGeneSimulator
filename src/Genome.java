@@ -29,7 +29,7 @@ public class Genome
 				case STATICNUMBER:
 					System.out.println(conditionalStatusMarker+gene.geneNumberData);
 				break;
-				case GETSTATICMEMORY:
+				case STATICMEMORY:
 					System.out.println(conditionalStatusMarker+"."+gene.geneNumberData+" (Memory: "+memory.get(gene.geneNumberData)+")");
 				break;
 				case CONDITIONAL:
