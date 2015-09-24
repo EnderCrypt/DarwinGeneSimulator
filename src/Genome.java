@@ -38,17 +38,17 @@ public class Genome
 						case 0:
 							conditionalStatus = 1;
 							conditionalStatusMarker = "?\t";
-							System.out.println("[CONDITIONAL]IF\n{");
+							System.out.println("["+gene.operator.name()+"s]IF\n{");
 						break;
 						case 1:
 							conditionalStatus = 2;
 							conditionalStatusMarker = "\t";
-							System.out.println("}\n[CONDITIONAL]THEN\n{");
+							System.out.println("}\n["+gene.operator.name()+"]THEN\n{");
 						break;
 						case 2:
 							conditionalStatus = 0;
 							conditionalStatusMarker = "";
-							System.out.println("}\n[CONDITIONAL]END");
+							System.out.println("}\n["+gene.operator.name()+"]END");
 							break;
 						}
 				break;
