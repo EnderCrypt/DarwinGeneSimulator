@@ -1,6 +1,6 @@
 public enum Operator
 	{
-	/*
+	/* 
 	 * Basic genes
 	 */
 	STATICNUMBER(true,2000,(execFlow) -> // moves the raw number on the gene position into the stack
