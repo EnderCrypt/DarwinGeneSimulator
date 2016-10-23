@@ -1,5 +1,7 @@
 # DarwinGeneSimulator
 
+## PROJECT ABANDONED (new version: https://github.com/EnderCrypt/JDarwin)
+
 The application is still in early stages
 
 
